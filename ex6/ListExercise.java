@@ -1,11 +1,21 @@
 public class ListExercise {
   
   public static List mergesort(List list) {
-    //TODO
+    if (list.length() <= 1) return list;
+
+    List[] parts = divide(list);
+    return merge(mergesort(parts[0]), mergesort(parts[1]));
   }
   
   private static List merge(List first, List second) {
-    //TODO
+    if (first.isEmpty()) return second;
+    if (second.isEmpty()) return first;
+
+    if (first.getValue() > second.getValue()) {
+      return new List(merge(first, second.getNext()), second.getValue());
+    } else {
+      return new List(merge(first.getNext(), second), first.getValue());
+    }
   }
   
   /**
@@ -30,8 +40,8 @@ public class ListExercise {
   public static void main(String[] args) {
     if (args != null && args.length > 0) {
       List list = buildList(0,args);
-      System.out.println(mergesort(list));
       System.out.println(list);
+      System.out.println(mergesort(list));
     }
   }
   
